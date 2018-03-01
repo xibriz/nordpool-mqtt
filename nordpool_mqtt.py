@@ -24,13 +24,13 @@ def publish_price(topic, date):
 			if col['Name'] != city:
 				continue
 			hours_display = row['Name'].replace('&nbsp;', '')
-			publish.single(topic.format(hours_display), col['Value'].replace(',','.'), hostname=mqtt_ip, port=mqtt_port)
+			publish.single(topic.format(hours_display), col['Value'].replace(',','.').replace(' ',''), hostname=mqtt_ip, port=mqtt_port)
 			#Check if current time
 			now = datetime.datetime.now()
 			hours = hours_display.split('-')
 			try:
 				if date == dt_today and (datetime.time(int(hours[0]),00) <= now.time() <= datetime.time(int(hours[1]),00)):
-					publish.single(topic.format('current'), col['Value'].replace(',','.'), hostname=mqtt_ip, port=mqtt_port)
+					publish.single(topic.format('current'), col['Value'].replace(',','.').replace(' ',''), hostname=mqtt_ip, port=mqtt_port)
 			except ValueError:
 				pass
 
