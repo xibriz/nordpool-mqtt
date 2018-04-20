@@ -5,6 +5,7 @@ import urllib2
 import json
 import datetime
 
+
 dir_path = '/path/to/nordpool-mqtt'
 # Possible values: Oslo, Kr.sand, Bergen, Tr.heim, Molde, Tromsø
 city = u'Tromsø'
