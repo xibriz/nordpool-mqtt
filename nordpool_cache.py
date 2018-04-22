@@ -1,7 +1,13 @@
 #!/usr/bin/python
 # coding: utf-8
 
-import urllib2
+try:
+    # For Python 3.0 and later
+    from urllib.request import urlopen
+except ImportError:
+    # Fall back to Python 2's urllib2
+    from urllib2 import urlopen
+
 import json
 import datetime
 
@@ -10,7 +16,7 @@ dir_path = '/path/to/nordpool-mqtt'
 city = u'Tromsø'
 
 def save_price(date):
-	response = urllib2.urlopen('https://www.nordpoolgroup.com/api/marketdata/page/23?currency=NOK&endDate={}'.format(date))
+	response = urlopen('https://www.nordpoolgroup.com/api/marketdata/page/23?currency=NOK&endDate={}'.format(date))
 	data = json.loads(response.read())
 
 	with open('{}/cache/{}.json'.format(dir_path, date), 'w') as outfile:

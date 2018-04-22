@@ -1,7 +1,13 @@
 #!/usr/bin/python
 # coding: utf-8
 
-import urllib2
+try:
+    # For Python 3.0 and later
+    from urllib.request import urlopen
+except ImportError:
+    # Fall back to Python 2's urllib2
+    from urllib2 import urlopen
+
 import json
 import datetime
 import paho.mqtt.publish as publish
@@ -29,7 +35,7 @@ def publish_price(topic, date):
 			now = datetime.datetime.now()
 			hours = hours_display.split('-')
 			try:
-				if date == dt_today and (datetime.time(int(hours[0]),00) <= now.time() <= datetime.time(int(hours[1]),00)):
+				if date == dt_today and (datetime.time(int(hours[0]),00) <= now.time() <= datetime.time(int(hours[1]),00) or (datetime.time(23,00) <= now.time() and int(hours[1]) == 0)):
 					publish.single(topic.format('current'), col['Value'].replace(',','.').replace(' ',''), hostname=mqtt_ip, port=mqtt_port)
 			except ValueError:
 				pass
