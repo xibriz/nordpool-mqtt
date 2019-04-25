@@ -1,25 +1,27 @@
 #!/usr/bin/python
 # coding: utf-8
 
-try:
-    # For Python 3.0 and later
-    from urllib.request import urlopen
-except ImportError:
-    # Fall back to Python 2's urllib2
-    from urllib2 import urlopen
-
+import configparser
+from urllib.request import urlopen
 import json
 import datetime
+import os
+import codecs
 
-dir_path = '/path/to/nordpool-mqtt'
-# Possible values: Oslo, Kr.sand, Bergen, Tr.heim, Molde, Tromsø
-city = u'Tromsø'
+main_base = os.path.dirname(__file__)
+config_file = os.path.join(main_base, "config", "prod.cfg")
+
+config = configparser.SafeConfigParser()
+config.readfp(codecs.open(config_file, 'r', 'utf8'))
+
+dir_path = config.get('Nordpool', 'cache_dir')
+city = config.get('Nordpool', 'city')
 
 def save_price(date):
 	response = urlopen('https://www.nordpoolgroup.com/api/marketdata/page/23?currency=NOK&endDate={}'.format(date))
 	data = json.loads(response.read())
 
-	with open('{}/cache/{}.json'.format(dir_path, date), 'w') as outfile:
+	with open('{}/{}.json'.format(dir_path, date), 'w') as outfile:
 		json.dump(data, outfile)
 
 #Get todays prices

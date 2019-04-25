@@ -1,6 +1,20 @@
 # nordpool-mqtt
 Parse todays and the next days power prices from Nordpool and publish them om MQTT
 
+## Installation
+```
+$ git clone https://github.com/xibriz/nordpool-mqtt.git
+$ cd nordpool-mqtt
+$ python3 -m venv venv
+$ source venv/bin/activate
+$ pip3 install pip --upgrade
+$ pip3 install -r requirements.txt
+```
+
+## Configuration
+
+Copy `config/default.cfg` to `config/prod.cfg` and fill in all the FIXME values
+
 # Setup
 
 Just set up two cronjobs like this:
