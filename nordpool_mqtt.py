@@ -12,8 +12,8 @@ import codecs
 main_base = os.path.dirname(__file__)
 config_file = os.path.join(main_base, "config", "prod.cfg")
 
-config = configparser.SafeConfigParser()
-config.readfp(codecs.open(config_file, 'r', 'utf8'))
+config = configparser.ConfigParser()
+config.read_file(codecs.open(config_file, 'r', 'utf8'))
 
 mqtt_port = config.getint('MQTT', 'port')
 mqtt_ip = config.get('MQTT', 'ip')
