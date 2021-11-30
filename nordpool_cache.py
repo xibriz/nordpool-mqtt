@@ -11,8 +11,8 @@ import codecs
 main_base = os.path.dirname(__file__)
 config_file = os.path.join(main_base, "config", "prod.cfg")
 
-config = configparser.SafeConfigParser()
-config.readfp(codecs.open(config_file, 'r', 'utf8'))
+config = configparser.ConfigParser()
+config.read_file(codecs.open(config_file, 'r', 'utf8'))
 
 dir_path = config.get('Nordpool', 'cache_dir')
 city = config.get('Nordpool', 'city')
