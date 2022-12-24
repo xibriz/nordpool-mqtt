@@ -27,7 +27,7 @@ Configuration now adds username and password for MQTT and is required for publis
 
 ## Installation
 ```
-$ git clone https://github.com/oh2th/nordpool-mqtt.git
+$ git clone https://github.com/xibriz/nordpool-mqtt.git
 $ cd nordpool-mqtt
 $ python3 -m venv venv
 $ source venv/bin/activate
