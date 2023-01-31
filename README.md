@@ -1,5 +1,29 @@
 # nordpool-mqtt
-Parse todays and the next days power prices from Nordpool and publish them om MQTT
+Parse todays and the next days electricity prices from Nordpool and publish them om MQTT
+
+# Changes to original code include
+
+Breaking change in configuration: no more city, select area from one of
+- AT Austria
+- BE Belgium
+- DE Germany
+- DK1, DK2 - Denmark
+- EE - Estonia
+- FI - Finland
+- FR - France
+- LT - Lithuania
+- LV - Latvia
+- NL - Netherlands
+- NO1 - Oslo
+- NO2 - Krstiansand
+- NO3 - Molde, Trondheim
+- NO4 - Tromsø
+- NO5 - Bergen
+- SE, SE1, SE2, SE3, SE4 - Sweden
+
+Currency selection from *EUR*, DKK, NOK, SEK. Where EUR is now the default in configuration file. You should set to NOK to get the original behaviour.
+
+Configuration now adds username and password for MQTT and is required for publishing topics to the MQTT server. Setup authentication also on the MQTT server.
 
 ## Installation
 ```

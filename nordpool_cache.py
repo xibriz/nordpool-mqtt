@@ -5,6 +5,7 @@ import configparser
 from urllib.request import urlopen
 import json
 import datetime
+import pytz
 import os
 import codecs
 
@@ -15,10 +16,11 @@ config = configparser.ConfigParser()
 config.read_file(codecs.open(config_file, 'r', 'utf8'))
 
 dir_path = config.get('Nordpool', 'cache_dir')
-city = config.get('Nordpool', 'city')
+area = config.get('Nordpool', 'area')
+currency = config.get('Nordpool', 'currency')
 
 def save_price(date):
-	response = urlopen('https://www.nordpoolgroup.com/api/marketdata/page/23?currency=NOK&endDate={}'.format(date))
+	response = urlopen('https://www.nordpoolgroup.com/api/marketdata/page/10?currency={}&endDate={}'.format(currency, date))
 	data = json.loads(response.read())
 
 	with open('{}/{}.json'.format(dir_path, date), 'w') as outfile:
@@ -29,7 +31,8 @@ dt_today = datetime.date.today().strftime("%d-%m-%Y")
 save_price(dt_today)
 
 #We only have next day prices after 12:00
-now = datetime.datetime.now()
+now = datetime.datetime.now(pytz.timezone('CET'))
+
 if now.time() >= datetime.time(12,00):
 	dt_tomorrow = (datetime.date.today()+ datetime.timedelta(days=1)).strftime("%d-%m-%Y")
 	save_price(dt_tomorrow)
